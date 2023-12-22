@@ -6,7 +6,7 @@
 /*   By: jschaft <cecile.schaft@orange.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 12:05:21 by jschaft           #+#    #+#             */
-/*   Updated: 2023/12/21 13:01:56 by jschaft          ###   ########.fr       */
+/*   Updated: 2023/12/22 11:31:08 by jschaft          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	wrong_file(char *s)
 		i++;
 	if (i < 5)
 		return (1);
-	if (s[i - 1] != 'r' || s[i - 2] != 'e' || s[i - 3] != 'd')
+	if (s[i - 1] != 'r' || s[i - 2] != 'e' || s[i - 3] != 'b')
 		return (1);
 	if (s[i - 4] != '.')
 		return (1);
