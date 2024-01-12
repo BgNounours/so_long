@@ -6,7 +6,7 @@
 /*   By: jschaft <cecile.schaft@orange.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:56:11 by jschaft           #+#    #+#             */
-/*   Updated: 2023/12/21 12:59:18 by jschaft          ###   ########.fr       */
+/*   Updated: 2024/01/12 09:16:56 by jschaft          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	invalid_char(char c, char *valid_c)
 	i = 0;
 	while (valid_c[i] != '\0')
 	{
-		if (valid_c[i] == c)
+		if (valid_c[i] == c || c == '\0')
 			return (0);
 		i++;
 	}
@@ -65,7 +65,17 @@ static t_data	*check_char(t_data *d)
 	}
 	if (d->have_player != 1 || d->have_exit != 1 || d->nbr_collec == 0)
 		d->good_map = 0;
+	d->flood_data = d->nbr_collec + 1;
 	return (d);
+}
+
+static int	wrong_line(t_data *d, int i)
+{
+	if (ft_strlen(d->map[i]) == d->width)
+		return (0);
+	if (ft_strlen(d->map[i]) == d->width - 1)
+		return (0);
+	return (-1);
 }
 
 t_data	*check_map(t_data *d)
@@ -76,11 +86,12 @@ t_data	*check_map(t_data *d)
 	d->good_map = 1;
 	while (i < d->height)
 	{
-		if (ft_strlen(d->map[i]) != d->width)
+		if (wrong_line(d, i) < 0)
 			d->good_map = 0;
 		i++;
 	}
 	d = check_char(d);
+	d = flood_fill(d);
 	d->map[d->posy / 60][d->posx / 60] = '0';
 	return (d);
 }

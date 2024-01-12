@@ -6,7 +6,7 @@
 /*   By: jschaft <cecile.schaft@orange.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 11:53:50 by jschaft           #+#    #+#             */
-/*   Updated: 2023/12/21 13:04:15 by jschaft          ###   ########.fr       */
+/*   Updated: 2024/01/11 11:45:40 by jschaft          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_data
 	int			posx;
 	int			posy;
 	int			nbr_collec;
+	int			flood_data;
 	int			good_map;
 	t_img		img;
 	int			have_exit;
@@ -56,6 +57,7 @@ void	ft_putnbr(int n);
 
 t_data	*get_map(t_data *d, char *file);
 t_data	*check_map(t_data *d);
+t_data	*flood_fill(t_data *d);
 
 void	print_img(t_data *d, void *img, int x, int y);
 int		render_background(t_data *d);

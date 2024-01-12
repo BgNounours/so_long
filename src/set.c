@@ -6,7 +6,7 @@
 /*   By: jschaft <cecile.schaft@orange.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 12:05:21 by jschaft           #+#    #+#             */
-/*   Updated: 2023/12/22 11:31:08 by jschaft          ###   ########.fr       */
+/*   Updated: 2024/01/12 09:22:52 by jschaft          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static t_data	*set_img(t_data *d)
 	d->img.floor = mlx_xpm_file_to_image(d->mlx, "img/flor.xpm", &s, &s);
 	d->img.exit = mlx_xpm_file_to_image(d->mlx, "img/exit.xpm", &s, &s);
 	d->img.collec = mlx_xpm_file_to_image(d->mlx, "img/colect.xpm", &s, &s);
-	d->img.cow = mlx_xpm_file_to_image(d->mlx, "img/cow.xpm", &s, &s);
+	d->img.cow = mlx_xpm_file_to_image(d->mlx, "img/pD.xpm", &s, &s);
 	return (d);
 }
 
@@ -51,7 +51,14 @@ static void	game(t_data *d)
 	render_background(d);
 	mlx_put_image_to_window(d->mlx, d->win, d->img.cow, d->posx, d->posy);
 	mlx_key_hook(d->win, &key_pressed, d);
+	mlx_hook(d->win, 17, 0L, &end, d);
 	mlx_loop(d->mlx);
+}
+
+static int	nomap(void)
+{
+	write(1, "Error: No file found\n", 22);
+	return (0);
 }
 
 int	main(int ac, char **av)
@@ -60,21 +67,23 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 	{
-		write(1, "Error, enter '.der' files!\n", 27);
+		write(1, "Error: Enter only one map file\n", 32);
 		return (0);
 	}
 	if (wrong_file(av[1]) == 1)
 	{
-		write(1, "Error, enter '.der' files!\n", 27);
+		write(1, "Error: Enter a '.ber' file\n", 27);
 		return (0);
 	}
 	d = malloc(sizeof(t_data) * 1);
 	d = get_map(d, av[1]);
+	if (d == NULL)
+		return (nomap());
 	check_map(d);
 	if (d->good_map == 0)
 	{
 		pre_end(d);
-		write(1, "Error, invalid map!\n", 20);
+		write(1, "Error: Invalid map\n", 19);
 		return (0);
 	}
 	game(d);

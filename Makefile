@@ -13,7 +13,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 MLXFLAGS = -lX11 -lXext
 
-FILES = set.c map.c end.c utils.c check_map.c render.c render_move.c\
+FILES = set.c map.c end.c utils.c check_map.c render.c render_move.c flood.c\
 		gnl/get_next_line.c gnl/get_next_line_utils.c
 OBJECTS = $(addprefix $(SRCS), $(FILES:.c=.o))
 

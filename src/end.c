@@ -6,7 +6,7 @@
 /*   By: jschaft <cecile.schaft@orange.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:40:30 by jschaft           #+#    #+#             */
-/*   Updated: 2023/12/21 12:57:10 by jschaft          ###   ########.fr       */
+/*   Updated: 2024/01/09 11:37:12 by jschaft          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	pre_end(t_data *d)
 	int	i;
 
 	i = 0;
-	while (i < d->height)
+	while (i != d->height + 1)
 	{
 		free(d->map[i]);
 		i++;
@@ -34,11 +34,13 @@ int	end(t_data *d)
 	mlx_destroy_image(d->mlx, d->img.wall);
 	mlx_destroy_image(d->mlx, d->img.cow);
 	mlx_destroy_image(d->mlx, d->img.exit);
-	mlx_destroy_window(d->mlx, d->win);
 	mlx_loop_end(d->mlx);
+	mlx_destroy_window(d->mlx, d->win);
+	if (d->mlx)
+		mlx_destroy_display(d->mlx);
+	free(d->mlx);
 	pre_end(d);
 	exit(0);
-	return (0);
 }
 
 void	win(t_data *d)
