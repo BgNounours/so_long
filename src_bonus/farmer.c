@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   end.c                                              :+:      :+:    :+:   */
+/*   farmer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jschaft <cecile.schaft@orange.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,43 +10,57 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "../include/so_long_bonus.h"
 
-void	pre_end(t_data *d)
+t_farmer	*new_farmer(int x, int y, char c)
 {
-	int	i;
+	t_farmer	*new;
 
-	i = 0;
-	while (i != d->height + 1)
+	new = malloc(sizeof(t_farmer));
+	new->posx = x;
+	new->posy = y;
+	new->fDir = c;
+	new->next = NULL;
+	return (new);
+}
+
+int	nbr_of_farmer(t_farmer farm)
+{
+	t_farmer	*tmp;
+	int			i;
+
+	tmp = farm;
+	while (tmp->next != NULL)
 	{
-		free(d->map[i]);
 		i++;
+		tmp = tmp->next;
 	}
-	free(d->map);
-	free(d);
+	return (i);
 }
 
-int	end(t_data *d)
+t_data	*get_farmer(t_data *d)
 {
-	mlx_clear_window(d->mlx, d->win);
-	mlx_destroy_image(d->mlx, d->img.floor);
-	mlx_destroy_image(d->mlx, d->img.collec);
-	mlx_destroy_image(d->mlx, d->img.wall);
-	mlx_destroy_image(d->mlx, d->img.cow);
-	mlx_destroy_image(d->mlx, d->img.exit);
-	mlx_loop_end(d->mlx);
-	mlx_destroy_window(d->mlx, d->win);
-	if (d->mlx)
-		mlx_destroy_display(d->mlx);
-	free(d->mlx);
-	pre_end(d);
-	exit(0);
-}
+	int			x;
+	int			y;
+	t_farmer	*tmp;
 
-void	win(t_data *d)
-{
-	write(1, "Good Job, you won in only ", 26);
-	ft_putnbr(d->nb_move);
-	write(1, " movements\n", 11);
-	end(d);
+	x = 0;
+	y = 0;
+	tmp = d->farm;
+	while (y < d->height)
+	{
+		while (x < d->width)
+		{
+			if (d->map[y][x] == 'v' || d->map[y][x] == 'v'
+				|| d->map[y][x] == 'v' || d->map[y][x] == 'v')
+			{
+				tmp->next = new_farmer(x * 60, y * 60, d->map[y][x]);
+				tmp = tmp->next;
+			}
+			x++;
+		}
+		y++;
+		x = 0;
+	}
+	return (d);
 }
