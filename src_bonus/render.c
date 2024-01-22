@@ -17,6 +17,23 @@ void	print_img(t_data *d, void *img, int x, int y)
 	mlx_put_image_to_window(d->mlx, d->win, img, 60 * x, 60 * y);
 }
 
+static t_data	*render_norm(t_data *d, int i, int y)
+{
+	if (d->map[y][i] == '1')
+		print_img(d, d->img.wall, i, y);
+	if (d->map[y][i] == '0' || d->map[y][i] == 'D'
+		|| d->map[y][i] == 'U' || d->map[y][i] == 'R'
+		|| d->map[y][i] == 'L')
+		print_img(d, d->img.floor, i, y);
+	if (d->map[y][i] == 'E')
+		print_img(d, d->img.exit[0], i, y);
+	if (d->map[y][i] == 'C')
+		print_img(d, d->img.collec[0], i, y);
+	if (d->map[y][i] == 'c')
+		print_img(d, d->img.collec[1], i, y);
+	return (d);
+}
+
 int	render_background(t_data *d)
 {
 	int	i;
@@ -28,16 +45,7 @@ int	render_background(t_data *d)
 	{
 		while (d->map[y][i] != '\0')
 		{
-			if (d->map[y][i] == '1')
-				print_img(d, d->img.wall, i, y);
-			if (d->map[y][i] == '0' || d->map[y][i] == 'D'
-				|| d->map[y][i] == 'U' || d->map[y][i] == 'R'
-				|| d->map[y][i] == 'L')
-				print_img(d, d->img.floor, i, y);
-			if (d->map[y][i] == 'E')
-				print_img(d, d->img.exit[0], i, y);
-			if (d->map[y][i] == 'C')
-				print_img(d, d->img.collec[0], i, y);
+			d = render_norm(d, i, y);
 			i++;
 		}
 		i = 0;
@@ -49,7 +57,18 @@ int	render_background(t_data *d)
 void	draw(t_data *d)
 {
 	render_background(d);
-	mlx_put_image_to_window(d->mlx, d->win, d->img.cow[0], d->posx, d->posy);
+	if (d->pdir == 'D')
+		mlx_put_image_to_window(d->mlx, d->win, d->img.cow[0], d->posx,
+			d->posy);
+	if (d->pdir == 'U')
+		mlx_put_image_to_window(d->mlx, d->win, d->img.cow[1], d->posx,
+			d->posy);
+	if (d->pdir == 'R')
+		mlx_put_image_to_window(d->mlx, d->win, d->img.cow[2], d->posx,
+			d->posy);
+	if (d->pdir == 'L')
+		mlx_put_image_to_window(d->mlx, d->win, d->img.cow[3], d->posx,
+			d->posy);
 	draw_farmer(d);
 }
 

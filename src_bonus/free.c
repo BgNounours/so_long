@@ -40,8 +40,12 @@ void	free_img(t_data *d)
 {
 	mlx_destroy_image(d->mlx, d->img.floor);
 	mlx_destroy_image(d->mlx, d->img.collec[0]);
+	mlx_destroy_image(d->mlx, d->img.collec[1]);
 	mlx_destroy_image(d->mlx, d->img.wall);
 	mlx_destroy_image(d->mlx, d->img.cow[0]);
+	mlx_destroy_image(d->mlx, d->img.cow[1]);
+	mlx_destroy_image(d->mlx, d->img.cow[2]);
+	mlx_destroy_image(d->mlx, d->img.cow[3]);
 	mlx_destroy_image(d->mlx, d->img.farm[0]);
 	mlx_destroy_image(d->mlx, d->img.exit[0]);
 }

@@ -71,6 +71,9 @@ t_data		*get_map(t_data *d, char *file);
 t_data		*check_map(t_data *d);
 t_data		*flood_fill(t_data *d);
 
+void		menu(t_data *d);
+void		game(t_data *d);
+
 t_farmer	*new_farmer(int x, int y, char c);
 int			nbr_of_farmer(t_farmer *farm);
 t_data		*get_farmer(t_data *d);

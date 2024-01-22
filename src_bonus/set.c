@@ -41,15 +41,20 @@ static t_data	*set_img(t_data *d)
 	d->img.floor = mlx_xpm_file_to_image(d->mlx, "img/flor.xpm", &s, &s);
 	d->img.exit[0] = mlx_xpm_file_to_image(d->mlx, "img/exit.xpm", &s, &s);
 	d->img.collec[0] = mlx_xpm_file_to_image(d->mlx, "img/colect.xpm", &s, &s);
+	d->img.collec[1] = mlx_xpm_file_to_image(d->mlx, "img/kk.xpm", &s, &s);
 	d->img.cow[0] = mlx_xpm_file_to_image(d->mlx, "img/pD.xpm", &s, &s);
+	d->img.cow[1] = mlx_xpm_file_to_image(d->mlx, "img/pU.xpm", &s, &s);
+	d->img.cow[2] = mlx_xpm_file_to_image(d->mlx, "img/pL.xpm", &s, &s);
+	d->img.cow[3] = mlx_xpm_file_to_image(d->mlx, "img/pR.xpm", &s, &s);
 	d->img.farm[0] = mlx_xpm_file_to_image(d->mlx, "img/fD.xpm", &s, &s);
 	return (d);
 }
 
-static void	game(t_data *d)
+void	game(t_data *d)
 {
 	d->width--;
 	d->nb_move = 0;
+	d->pdir = 'D';
 	d->mlx = mlx_init();
 	d = set_img(d);
 	d->win = mlx_new_window(d->mlx, d->width * 60, d->height * 60, "so_long");
@@ -92,6 +97,6 @@ int	main(int ac, char **av)
 		write(1, "Error: Invalid map\n", 19);
 		return (0);
 	}
-	game(d);
+	menu(d);
 	end(d);
 }

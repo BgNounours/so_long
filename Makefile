@@ -17,7 +17,7 @@ MLXFLAGS = -lX11 -lXext
 FILES = set.c map.c end.c utils.c check_map.c render.c render_move.c flood.c\
 		gnl/get_next_line.c gnl/get_next_line_utils.c
 OBJECTS = $(addprefix $(SRCS), $(FILES:.c=.o))
-BONUS_FILES = set.c map.c end.c utils.c check_map.c render.c render_move.c flood.c farmer.c free.c render_farmer.c\
+BONUS_FILES = set.c map.c end.c utils.c check_map.c render.c render_move.c flood.c farmer.c free.c render_farmer.c menu.c\
 		gnl/get_next_line.c gnl/get_next_line_utils.c
 BONUS_OBJECTS = $(addprefix $(BONUS_SRCS), $(BONUS_FILES:.c=.o))
 
