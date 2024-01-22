@@ -24,6 +24,14 @@
 # define KEY_S 115
 # define KEY_D 100
 
+typedef struct s_farmer
+{
+	int					posx;
+	int					posy;
+	char				fdir;
+	struct s_farmer		*next;
+}				t_farmer;
+
 typedef struct s_img
 {
 	void	*floor;
@@ -32,16 +40,8 @@ typedef struct s_img
 	void	**cow;
 	void	**collec;
 	void	**farm;
-	void	**menu;
+	void	*menu;
 }				t_img;
-
-typedef struct s_farmer
-{
-	int			posx;
-	int			posy;
-	char		fDir;
-	t_farmer	*next;
-}				t_farmer;
 
 typedef struct s_data
 {
@@ -53,7 +53,7 @@ typedef struct s_data
 	int			width;
 	int			posx;
 	int			posy;
-	char		pDir;
+	char		pdir;
 	int			nbr_collec;
 	int			flood_data;
 	int			good_map;
@@ -63,27 +63,36 @@ typedef struct s_data
 	int			have_player;
 }				t_data;
 
-char	*get_next_line(int fd);
-int		ft_strlen(char const *s);
-void	ft_putnbr(int n);
+char		*get_next_line(int fd);
+int			ft_strlen(char const *s);
+void		ft_putnbr(int n);
 
-t_data	*get_map(t_data *d, char *file);
-t_data	*check_map(t_data *d);
-t_data	*flood_fill(t_data *d);
+t_data		*get_map(t_data *d, char *file);
+t_data		*check_map(t_data *d);
+t_data		*flood_fill(t_data *d);
 
-void	print_img(t_data *d, void *img, int x, int y);
-int		render_background(t_data *d);
-void	put_move(t_data *d);
-int		key_pressed(int keycode, t_data *d);
-void	draw(t_data *d);
+t_farmer	*new_farmer(int x, int y, char c);
+int			nbr_of_farmer(t_farmer *farm);
+t_data		*get_farmer(t_data *d);
 
-t_data	*move_right(t_data *d);
-t_data	*move_left(t_data *d);
-t_data	*move_down(t_data *d);
-t_data	*move_up(t_data *d);
+void		print_img(t_data *d, void *img, int x, int y);
+void		draw_farmer(t_data *d);
+int			render_background(t_data *d);
+void		render_farmer(t_data *d);
+int			key_pressed(int keycode, t_data *d);
+void		draw(t_data *d);
 
-void	pre_end(t_data *d);
-int		end(t_data *d);
-void	win(t_data *d);
+t_data		*move_right(t_data *d);
+t_data		*move_left(t_data *d);
+t_data		*move_down(t_data *d);
+t_data		*move_up(t_data *d);
+
+void		pre_end(t_data *d);
+void		free_img(t_data *d);
+int			end(t_data *d);
+int			end_exit(t_data *d);
+int			end_game(int keycode, t_data *d);
+void		win(t_data *d);
+void		check_gameover(t_data *d);
 
 #endif

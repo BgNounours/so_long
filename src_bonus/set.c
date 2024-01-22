@@ -54,10 +54,10 @@ static void	game(t_data *d)
 	d = set_img(d);
 	d->win = mlx_new_window(d->mlx, d->width * 60, d->height * 60, "so_long");
 	render_background(d);
-	mlx_put_image_to_window(d->mlx, d->win, d->img.cow, d->posx, d->posy);
-	//draw_farmer
+	mlx_put_image_to_window(d->mlx, d->win, d->img.cow[0], d->posx, d->posy);
+	draw_farmer(d);
 	mlx_key_hook(d->win, &key_pressed, d);
-	mlx_hook(d->win, 17, 0L, &end, d);
+	mlx_hook(d->win, 17, 0L, &end_exit, d);
 	mlx_loop(d->mlx);
 }
 

@@ -30,12 +30,14 @@ int	render_background(t_data *d)
 		{
 			if (d->map[y][i] == '1')
 				print_img(d, d->img.wall, i, y);
-			if (d->map[y][i] == '0')
+			if (d->map[y][i] == '0' || d->map[y][i] == 'D'
+				|| d->map[y][i] == 'U' || d->map[y][i] == 'R'
+				|| d->map[y][i] == 'L')
 				print_img(d, d->img.floor, i, y);
 			if (d->map[y][i] == 'E')
-				print_img(d, d->img.exit, i, y);
+				print_img(d, d->img.exit[0], i, y);
 			if (d->map[y][i] == 'C')
-				print_img(d, d->img.collec, i, y);
+				print_img(d, d->img.collec[0], i, y);
 			i++;
 		}
 		i = 0;
@@ -44,23 +46,20 @@ int	render_background(t_data *d)
 	return (0);
 }
 
-void	put_move(t_data *d)
-{
-	write(1, "Movement: ", 10);
-	ft_putnbr(d->nb_move);
-	write(1, "\n", 1);
-}
-
 void	draw(t_data *d)
 {
 	render_background(d);
-	mlx_put_image_to_window(d->mlx, d->win, d->img.cow, d->posx, d->posy);
+	mlx_put_image_to_window(d->mlx, d->win, d->img.cow[0], d->posx, d->posy);
+	draw_farmer(d);
 }
 
 int	key_pressed(int keycode, t_data *d)
 {
 	if (keycode == KEY_ESCAPE)
+	{
 		end(d);
+		exit(0);
+	}
 	if (keycode == KEY_W)
 	{
 		d = move_up(d);
@@ -77,6 +76,7 @@ int	key_pressed(int keycode, t_data *d)
 	{
 		d = move_right(d);
 	}
+	render_farmer(d);
 	draw(d);
 	return (0);
 }

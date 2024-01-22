@@ -38,7 +38,7 @@ static t_data	*norm_check(t_data *d, int x, int y)
 		d->have_exit++;
 	if (d->map[y][x] == 'C')
 		d->nbr_collec++;
-	if (invalid_char(d->map[y][x], "01PCcE\nv^<>") == 1)
+	if (invalid_char(d->map[y][x], "01PCcEDULR\n") == 1)
 		d->good_map = 0;
 	return (d);
 }
@@ -84,7 +84,7 @@ t_data	*check_map(t_data *d)
 
 	i = 1;
 	d->good_map = 1;
-	d->farm = malloc(sizeof(t_farmer));
+	d->farm = malloc(sizeof(t_farmer) * 1);
 	while (i < d->height)
 	{
 		if (wrong_line(d, i) < 0)
@@ -92,9 +92,9 @@ t_data	*check_map(t_data *d)
 		i++;
 	}
 	d = check_char(d);
-	d = flood_fill(d);
 	d = get_farmer(d);
-	d->map[d->posy / 60][d->posx / 60] = '0';
 	d->flood_data += nbr_of_farmer(d->farm);
+	d = flood_fill(d);
+	d->map[d->posy / 60][d->posx / 60] = '0';
 	return (d);
 }

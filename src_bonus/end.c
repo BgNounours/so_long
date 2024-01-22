@@ -12,55 +12,66 @@
 
 #include "../include/so_long_bonus.h"
 
-void	pre_end(t_data *d)
+static void	game_over(t_data *d)
 {
-	int			i;
-	t_farmer	*tmp;
+	int	x;
+	int	y;
 
-	i = 0;
-	tmp = d->farm->next;
-	while (i != d->height + 1)
-	{
-		free(d->map[i]);
-		i++;
-	}
-	while (tmp != NULL)
-	{
-		free(d->farm);
-		d->farm = tmp;
-		tmp = tmp->next;
-	}
-	free(d->farm);
-	free(d->map);
-	free(d);
+	x = 1440;
+	y = 800;
+	d->mlx = mlx_init();
+	d->win = mlx_new_window(d->mlx, 1440, 800, "game over :(");
+	d->img.menu = mlx_xpm_file_to_image(d->mlx, "img/go.xpm", &x, &y);
+	mlx_put_image_to_window(d->mlx, d->win, d->img.menu, 0, 0);
+	mlx_key_hook(d->win, &end_game, d);
+	mlx_hook(d->win, 17, 0L, &end_game, d);
+	mlx_loop(d->mlx);
 }
 
-int	end(t_data *d)
+void	check_gameover(t_data *d)
 {
-	mlx_clear_window(d->mlx, d->win);
-	mlx_destroy_image(d->mlx, d->img.floor);
-	mlx_destroy_image(d->mlx, d->img.collec[0]);
-	mlx_destroy_image(d->mlx, d->img.wall);
-	mlx_destroy_image(d->mlx, d->img.cow[0]);
-	mlx_destroy_image(d->mlx, d->img.farm[0]);
-	mlx_destroy_image(d->mlx, d->img.exit[0]);
-	mlx_loop_end(d->mlx);
-	mlx_destroy_window(d->mlx, d->win);
-	if (d->mlx)
-		mlx_destroy_display(d->mlx);
-	free(d->mlx);
-	free(d->img.cow);
-	free(d->img.exit);
-	free(d->img.collec);
-	free(d->farm);
-	pre_end(d);
-	exit(0);
+	t_farmer	*tmp;
+
+	tmp = d->farm->next;
+	while (tmp != NULL)
+	{
+		if (d->posx == tmp->posx && d->posy == tmp->posy)
+		{
+			mlx_destroy_window(d->mlx, d->win);
+			free_img(d);
+			mlx_loop_end(d->mlx);
+			if (d->mlx)
+				mlx_destroy_display(d->mlx);
+			free(d->mlx);
+			game_over(d);
+		}
+		tmp = tmp->next;
+	}
+}
+
+static void	f_win(t_data *d)
+{
+	int	x;
+	int	y;
+
+	x = 1440;
+	y = 800;
+	d->mlx = mlx_init();
+	d->win = mlx_new_window(d->mlx, 1440, 800, "Good Game :)");
+	d->img.menu = mlx_xpm_file_to_image(d->mlx, "img/gg.xpm", &x, &y);
+	mlx_put_image_to_window(d->mlx, d->win, d->img.menu, 0, 0);
+	mlx_key_hook(d->win, &end_game, d);
+	mlx_hook(d->win, 17, 0L, &end_game, d);
+	mlx_loop(d->mlx);
 }
 
 void	win(t_data *d)
 {
-	write(1, "Good Job, you won in only ", 26);
-	ft_putnbr(d->nb_move);
-	write(1, " movements\n", 11);
-	end(d);
+	mlx_destroy_window(d->mlx, d->win);
+	free_img(d);
+	mlx_loop_end(d->mlx);
+	if (d->mlx)
+		mlx_destroy_display(d->mlx);
+	free(d->mlx);
+	f_win(d);
 }

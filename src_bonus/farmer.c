@@ -19,17 +19,19 @@ t_farmer	*new_farmer(int x, int y, char c)
 	new = malloc(sizeof(t_farmer));
 	new->posx = x;
 	new->posy = y;
-	new->fDir = c;
+	new->fdir = c;
 	new->next = NULL;
 	return (new);
 }
 
-int	nbr_of_farmer(t_farmer farm)
+int	nbr_of_farmer(t_farmer *farm)
 {
 	t_farmer	*tmp;
 	int			i;
 
+	tmp = NULL;
 	tmp = farm;
+	i = 0;
 	while (tmp->next != NULL)
 	{
 		i++;
@@ -51,8 +53,8 @@ t_data	*get_farmer(t_data *d)
 	{
 		while (x < d->width)
 		{
-			if (d->map[y][x] == 'v' || d->map[y][x] == 'v'
-				|| d->map[y][x] == 'v' || d->map[y][x] == 'v')
+			if (d->map[y][x] == 'D' || d->map[y][x] == 'U'
+				|| d->map[y][x] == 'L' || d->map[y][x] == 'R')
 			{
 				tmp->next = new_farmer(x * 60, y * 60, d->map[y][x]);
 				tmp = tmp->next;
@@ -63,4 +65,27 @@ t_data	*get_farmer(t_data *d)
 		x = 0;
 	}
 	return (d);
+}
+
+void	draw_farmer(t_data *d)
+{
+	t_farmer	*tmp;
+
+	tmp = d->farm->next;
+	while (tmp != NULL)
+	{
+		if (tmp->fdir == 'D')
+			mlx_put_image_to_window(d->mlx, d->win, d->img.farm[0], tmp->posx,
+				tmp->posy);
+		if (tmp->fdir == 'U')
+			mlx_put_image_to_window(d->mlx, d->win, d->img.farm[0], tmp->posx,
+				tmp->posy);
+		if (tmp->fdir == 'L')
+			mlx_put_image_to_window(d->mlx, d->win, d->img.farm[0], tmp->posx,
+				tmp->posy);
+		if (tmp->fdir == 'R')
+			mlx_put_image_to_window(d->mlx, d->win, d->img.farm[0], tmp->posx,
+				tmp->posy);
+		tmp = tmp->next;
+	}
 }

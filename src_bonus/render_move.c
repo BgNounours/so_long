@@ -22,7 +22,6 @@ t_data	*move_up(t_data *d)
 		win(d);
 	d->posy -= 60;
 	d->nb_move++;
-	put_move(d);
 	if (d->map[d->posy / 60][d->posx / 60] == 'C')
 	{
 		d->nbr_collec--;
@@ -47,11 +46,9 @@ t_data	*move_down(t_data *d)
 	if (d->map[d->posy / 60][d->posx / 60] == 'E' && d->nbr_collec == 0)
 	{
 		d->nb_move++;
-		put_move(d);
 		win(d);
 	}
 	d->nb_move++;
-	put_move(d);
 	if (d->map[d->posy / 60][d->posx / 60] == 'C')
 	{
 		d->nbr_collec--;
@@ -70,7 +67,6 @@ t_data	*move_left(t_data *d)
 		win(d);
 	d->posx -= 60;
 	d->nb_move++;
-	put_move(d);
 	if (d->map[d->posy / 60][d->posx / 60] == 'C')
 	{
 		d->nbr_collec--;
@@ -95,11 +91,9 @@ t_data	*move_right(t_data *d)
 	if (d->map[d->posy / 60][d->posx / 60] == 'E' && d->nbr_collec == 0)
 	{
 		d->nb_move++;
-		put_move(d);
 		win(d);
 	}
 	d->nb_move++;
-	put_move(d);
 	if (d->map[d->posy / 60][d->posx / 60] == 'C')
 	{
 		d->nbr_collec--;

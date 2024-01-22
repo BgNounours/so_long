@@ -45,8 +45,8 @@ static void	check_path(t_data *d, char **tmp, int x, int y)
 {
 	if (tmp[y][x] == '1' || tmp[y][x] == '2')
 		return ;
-	if (tmp[y][x] == 'C' || tmp[y][x] == 'E' || tmp[y][x] == 'v'
-		|| tmp[y][x] == '^' || tmp[y][x] == '>' || tmp[y][x] == '<')
+	if (tmp[y][x] == 'C' || tmp[y][x] == 'E' || tmp[y][x] == 'D'
+		|| tmp[y][x] == 'U' || tmp[y][x] == 'R' || tmp[y][x] == 'L')
 		d->flood_data--;
 	tmp[y][x] = '2';
 	check_path(d, tmp, x - 1, y);
