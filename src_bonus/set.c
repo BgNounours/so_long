@@ -36,17 +36,24 @@ static t_data	*set_img(t_data *d)
 	d->img.collec = malloc(sizeof(void *) * 2);
 	d->img.cow = malloc(sizeof(void *) * 4);
 	d->img.exit = malloc(sizeof(void *) * 2);
+	d->img.score = malloc(sizeof(void *) * 3);
 	d->img.farm = malloc(sizeof(void *) * 4);
 	d->img.wall = mlx_xpm_file_to_image(d->mlx, "img/wall.xpm", &s, &s);
 	d->img.floor = mlx_xpm_file_to_image(d->mlx, "img/flor.xpm", &s, &s);
 	d->img.exit[0] = mlx_xpm_file_to_image(d->mlx, "img/exit.xpm", &s, &s);
+	d->img.exit[1] = mlx_xpm_file_to_image(d->mlx, "img/exitable.xpm", &s, &s);
 	d->img.collec[0] = mlx_xpm_file_to_image(d->mlx, "img/colect.xpm", &s, &s);
 	d->img.collec[1] = mlx_xpm_file_to_image(d->mlx, "img/kk.xpm", &s, &s);
-	d->img.cow[0] = mlx_xpm_file_to_image(d->mlx, "img/pD.xpm", &s, &s);
-	d->img.cow[1] = mlx_xpm_file_to_image(d->mlx, "img/pU.xpm", &s, &s);
-	d->img.cow[2] = mlx_xpm_file_to_image(d->mlx, "img/pL.xpm", &s, &s);
-	d->img.cow[3] = mlx_xpm_file_to_image(d->mlx, "img/pR.xpm", &s, &s);
-	d->img.farm[0] = mlx_xpm_file_to_image(d->mlx, "img/fD.xpm", &s, &s);
+	d->img.cow[0] = mlx_xpm_file_to_image(d->mlx, "img/p/pD.xpm", &s, &s);
+	d->img.cow[1] = mlx_xpm_file_to_image(d->mlx, "img/p/pU.xpm", &s, &s);
+	d->img.cow[2] = mlx_xpm_file_to_image(d->mlx, "img/p/pL.xpm", &s, &s);
+	d->img.cow[3] = mlx_xpm_file_to_image(d->mlx, "img/p/pR.xpm", &s, &s);
+	d->img.farm[0] = mlx_xpm_file_to_image(d->mlx, "img/f/fD.xpm", &s, &s);
+	d->img.farm[1] = mlx_xpm_file_to_image(d->mlx, "img/f/fU.xpm", &s, &s);
+	d->img.score[0] = mlx_xpm_file_to_image(d->mlx, "img/s/sL.xpm", &s, &s);
+	d->img.score[1] = mlx_xpm_file_to_image(d->mlx, "img/s/sM.xpm", &s, &s);
+	d->img.score[2] = mlx_xpm_file_to_image(d->mlx, "img/s/sR.xpm", &s, &s);
+	d = set_nbr_img(d);
 	return (d);
 }
 
@@ -61,6 +68,7 @@ void	game(t_data *d)
 	render_background(d);
 	mlx_put_image_to_window(d->mlx, d->win, d->img.cow[0], d->posx, d->posy);
 	draw_farmer(d);
+	render_score(d, ft_itoa(d->nb_move));
 	mlx_key_hook(d->win, &key_pressed, d);
 	mlx_hook(d->win, 17, 0L, &end_exit, d);
 	mlx_loop(d->mlx);
@@ -97,6 +105,6 @@ int	main(int ac, char **av)
 		write(1, "Error: Invalid map\n", 19);
 		return (0);
 	}
-	menu(d);
+	game(d);
 	end(d);
 }

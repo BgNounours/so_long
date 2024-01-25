@@ -47,7 +47,13 @@ void	free_img(t_data *d)
 	mlx_destroy_image(d->mlx, d->img.cow[2]);
 	mlx_destroy_image(d->mlx, d->img.cow[3]);
 	mlx_destroy_image(d->mlx, d->img.farm[0]);
+	mlx_destroy_image(d->mlx, d->img.farm[1]);
 	mlx_destroy_image(d->mlx, d->img.exit[0]);
+	mlx_destroy_image(d->mlx, d->img.exit[1]);
+	mlx_destroy_image(d->mlx, d->img.score[0]);
+	mlx_destroy_image(d->mlx, d->img.score[1]);
+	mlx_destroy_image(d->mlx, d->img.score[2]);
+	destroy_nb(d);
 }
 
 int	end(t_data *d)
@@ -63,6 +69,7 @@ int	end(t_data *d)
 	free(d->img.exit);
 	free(d->img.collec);
 	free(d->img.farm);
+	free(d->img.score);
 	pre_end(d);
 	return (0);
 }
@@ -80,6 +87,7 @@ int	end_exit(t_data *d)
 	free(d->img.exit);
 	free(d->img.collec);
 	free(d->img.farm);
+	free(d->img.score);
 	pre_end(d);
 	exit (0);
 }
@@ -99,6 +107,7 @@ int	end_game(int keycode, t_data *d)
 		free(d->img.exit);
 		free(d->img.collec);
 		free(d->img.farm);
+		free(d->img.score);
 		pre_end(d);
 	}
 	exit(0);

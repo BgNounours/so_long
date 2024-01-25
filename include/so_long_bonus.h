@@ -40,6 +40,8 @@ typedef struct s_img
 	void	**cow;
 	void	**collec;
 	void	**farm;
+	void	**score;
+	void	**nb;
 	void	*menu;
 }				t_img;
 
@@ -66,13 +68,14 @@ typedef struct s_data
 char		*get_next_line(int fd);
 int			ft_strlen(char const *s);
 void		ft_putnbr(int n);
+char		*ft_itoa(int n);
 
 t_data		*get_map(t_data *d, char *file);
 t_data		*check_map(t_data *d);
 t_data		*flood_fill(t_data *d);
 
-void		menu(t_data *d);
 void		game(t_data *d);
+t_data		*set_nbr_img(t_data *d);
 
 t_farmer	*new_farmer(int x, int y, char c);
 int			nbr_of_farmer(t_farmer *farm);
@@ -82,6 +85,8 @@ void		print_img(t_data *d, void *img, int x, int y);
 void		draw_farmer(t_data *d);
 int			render_background(t_data *d);
 void		render_farmer(t_data *d);
+void		render_score(t_data *d, char *score);
+void		put_nbr_windows(t_data *d, char c, int x, int y);
 int			key_pressed(int keycode, t_data *d);
 void		draw(t_data *d);
 
@@ -92,6 +97,7 @@ t_data		*move_up(t_data *d);
 
 void		pre_end(t_data *d);
 void		free_img(t_data *d);
+void		destroy_nb(t_data *d);
 int			end(t_data *d);
 int			end_exit(t_data *d);
 int			end_game(int keycode, t_data *d);

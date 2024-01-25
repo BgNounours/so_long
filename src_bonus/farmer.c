@@ -78,7 +78,7 @@ void	draw_farmer(t_data *d)
 			mlx_put_image_to_window(d->mlx, d->win, d->img.farm[0], tmp->posx,
 				tmp->posy);
 		if (tmp->fdir == 'U')
-			mlx_put_image_to_window(d->mlx, d->win, d->img.farm[0], tmp->posx,
+			mlx_put_image_to_window(d->mlx, d->win, d->img.farm[1], tmp->posx,
 				tmp->posy);
 		if (tmp->fdir == 'L')
 			mlx_put_image_to_window(d->mlx, d->win, d->img.farm[0], tmp->posx,

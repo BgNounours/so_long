@@ -26,7 +26,12 @@ static t_data	*render_norm(t_data *d, int i, int y)
 		|| d->map[y][i] == 'L')
 		print_img(d, d->img.floor, i, y);
 	if (d->map[y][i] == 'E')
-		print_img(d, d->img.exit[0], i, y);
+	{
+		if (d->nbr_collec != 0)
+			print_img(d, d->img.exit[0], i, y);
+		if (d->nbr_collec == 0)
+			print_img(d, d->img.exit[1], i, y);
+	}
 	if (d->map[y][i] == 'C')
 		print_img(d, d->img.collec[0], i, y);
 	if (d->map[y][i] == 'c')
@@ -70,6 +75,7 @@ void	draw(t_data *d)
 		mlx_put_image_to_window(d->mlx, d->win, d->img.cow[3], d->posx,
 			d->posy);
 	draw_farmer(d);
+	render_score(d, ft_itoa(d->nb_move));
 }
 
 int	key_pressed(int keycode, t_data *d)
