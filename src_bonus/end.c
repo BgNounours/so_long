@@ -68,7 +68,24 @@ static void	f_win(t_data *d)
 	mlx_loop(d->mlx);
 }
 
-void	win(t_data *d)
+static void	hunger(t_data *d)
+{
+	int	x;
+	int	y;
+
+	x = 1440;
+	y = 800;
+	d->mlx = mlx_init();
+	d = set_nbr_img(d);
+	d->win = mlx_new_window(d->mlx, 1440, 800, "hunger");
+	d->img.menu = mlx_xpm_file_to_image(d->mlx, "img/hunger.xpm", &x, &y);
+	mlx_put_image_to_window(d->mlx, d->win, d->img.menu, 0, 0);
+	mlx_key_hook(d->win, &end_game, d);
+	mlx_hook(d->win, 17, 0L, &end_game, d);
+	mlx_loop(d->mlx);
+}
+
+void	win(t_data *d, int state)
 {
 	mlx_destroy_window(d->mlx, d->win);
 	free_img(d);
@@ -76,5 +93,8 @@ void	win(t_data *d)
 	if (d->mlx)
 		mlx_destroy_display(d->mlx);
 	free(d->mlx);
-	f_win(d);
+	if (state == 0)
+		f_win(d);
+	if (state == 1)
+		hunger(d);
 }

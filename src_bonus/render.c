@@ -87,21 +87,15 @@ int	key_pressed(int keycode, t_data *d)
 		exit(0);
 	}
 	if (keycode == KEY_W)
-	{
 		d = move_up(d);
-	}
 	if (keycode == KEY_S)
-	{
 		d = move_down(d);
-	}
 	if (keycode == KEY_A)
-	{
 		d = move_left(d);
-	}
 	if (keycode == KEY_D)
-	{
 		d = move_right(d);
-	}
+	if (d->nb_move == 999)
+		win(d, 1);
 	if (d->farm->next != NULL)
 		render_farmer(d);
 	draw(d);

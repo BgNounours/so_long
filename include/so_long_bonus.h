@@ -101,7 +101,7 @@ void		destroy_nb(t_data *d);
 int			end(t_data *d);
 int			end_exit(t_data *d);
 int			end_game(int keycode, t_data *d);
-void		win(t_data *d);
+void		win(t_data *d, int state);
 void		render_score_end(t_data *d, char *score);
 void		check_gameover(t_data *d);
 

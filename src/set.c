@@ -35,7 +35,7 @@ static t_data	*set_img(t_data *d)
 	s = 60;
 	d->img.wall = mlx_xpm_file_to_image(d->mlx, "img/wall.xpm", &s, &s);
 	d->img.floor = mlx_xpm_file_to_image(d->mlx, "img/flor.xpm", &s, &s);
-	d->img.exit = mlx_xpm_file_to_image(d->mlx, "img/exit.xpm", &s, &s);
+	d->img.exit = mlx_xpm_file_to_image(d->mlx, "img/exitable.xpm", &s, &s);
 	d->img.collec = mlx_xpm_file_to_image(d->mlx, "img/colect.xpm", &s, &s);
 	d->img.cow = mlx_xpm_file_to_image(d->mlx, "img/p/pD.xpm", &s, &s);
 	return (d);
