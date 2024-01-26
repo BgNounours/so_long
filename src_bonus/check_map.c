@@ -92,8 +92,9 @@ t_data	*check_map(t_data *d)
 		i++;
 	}
 	d = check_char(d);
-	d = get_farmer(d);
-	d->flood_data += nbr_of_farmer(d->farm);
+	d->farm = get_farmer(d);
+	if (d->farm->next != NULL)
+		d->flood_data += nbr_of_farmer(d->farm);
 	d = flood_fill(d);
 	d->map[d->posy / 60][d->posx / 60] = '0';
 	return (d);

@@ -74,7 +74,8 @@ void	draw(t_data *d)
 	if (d->pdir == 'L')
 		mlx_put_image_to_window(d->mlx, d->win, d->img.cow[3], d->posx,
 			d->posy);
-	draw_farmer(d);
+	if (d->farm->next != NULL)
+		draw_farmer(d);
 	render_score(d, ft_itoa(d->nb_move));
 }
 
@@ -101,7 +102,8 @@ int	key_pressed(int keycode, t_data *d)
 	{
 		d = move_right(d);
 	}
-	render_farmer(d);
+	if (d->farm->next != NULL)
+		render_farmer(d);
 	draw(d);
 	return (0);
 }

@@ -28,6 +28,9 @@ t_data	*set_nbr_img(t_data *d)
 	d->img.nb[7] = mlx_xpm_file_to_image(d->mlx, "img/s/7.xpm", &s, &s);
 	d->img.nb[8] = mlx_xpm_file_to_image(d->mlx, "img/s/8.xpm", &s, &s);
 	d->img.nb[9] = mlx_xpm_file_to_image(d->mlx, "img/s/9.xpm", &s, &s);
+	d->img.score[0] = mlx_xpm_file_to_image(d->mlx, "img/s/sL.xpm", &s, &s);
+	d->img.score[1] = mlx_xpm_file_to_image(d->mlx, "img/s/sM.xpm", &s, &s);
+	d->img.score[2] = mlx_xpm_file_to_image(d->mlx, "img/s/sR.xpm", &s, &s);
 	return (d);
 }
 
@@ -93,5 +96,31 @@ void	destroy_nb(t_data *d)
 	mlx_destroy_image(d->mlx, d->img.nb[7]);
 	mlx_destroy_image(d->mlx, d->img.nb[8]);
 	mlx_destroy_image(d->mlx, d->img.nb[9]);
+	mlx_destroy_image(d->mlx, d->img.score[0]);
+	mlx_destroy_image(d->mlx, d->img.score[1]);
+	mlx_destroy_image(d->mlx, d->img.score[2]);
 	free(d->img.nb);
+}
+
+void	render_score_end(t_data *d, char *score)
+{
+	int	i;
+
+	i = 0;
+	if (ft_strlen(score) == 3)
+	{
+		put_nbr_windows(d, score[i], 1120, 530);
+		i++;
+	}
+	else
+		mlx_put_image_to_window(d->mlx, d->win, d->img.nb[0], 1120, 530);
+	if (ft_strlen(score) >= 2)
+	{
+		put_nbr_windows(d, score[i], 1150, 530);
+		i++;
+	}
+	else
+		mlx_put_image_to_window(d->mlx, d->win, d->img.nb[0], 1150, 530);
+	put_nbr_windows(d, score[i], 1180, 530);
+	free(score);
 }

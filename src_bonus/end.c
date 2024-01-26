@@ -20,6 +20,7 @@ static void	game_over(t_data *d)
 	x = 1440;
 	y = 800;
 	d->mlx = mlx_init();
+	d = set_nbr_img(d);
 	d->win = mlx_new_window(d->mlx, 1440, 800, "game over :(");
 	d->img.menu = mlx_xpm_file_to_image(d->mlx, "img/go.xpm", &x, &y);
 	mlx_put_image_to_window(d->mlx, d->win, d->img.menu, 0, 0);
@@ -57,9 +58,11 @@ static void	f_win(t_data *d)
 	x = 1440;
 	y = 800;
 	d->mlx = mlx_init();
+	d = set_nbr_img(d);
 	d->win = mlx_new_window(d->mlx, 1440, 800, "Good Game :)");
 	d->img.menu = mlx_xpm_file_to_image(d->mlx, "img/gg.xpm", &x, &y);
 	mlx_put_image_to_window(d->mlx, d->win, d->img.menu, 0, 0);
+	render_score_end(d, ft_itoa(d->nb_move));
 	mlx_key_hook(d->win, &end_game, d);
 	mlx_hook(d->win, 17, 0L, &end_game, d);
 	mlx_loop(d->mlx);

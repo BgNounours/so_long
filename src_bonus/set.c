@@ -50,9 +50,8 @@ static t_data	*set_img(t_data *d)
 	d->img.cow[3] = mlx_xpm_file_to_image(d->mlx, "img/p/pR.xpm", &s, &s);
 	d->img.farm[0] = mlx_xpm_file_to_image(d->mlx, "img/f/fD.xpm", &s, &s);
 	d->img.farm[1] = mlx_xpm_file_to_image(d->mlx, "img/f/fU.xpm", &s, &s);
-	d->img.score[0] = mlx_xpm_file_to_image(d->mlx, "img/s/sL.xpm", &s, &s);
-	d->img.score[1] = mlx_xpm_file_to_image(d->mlx, "img/s/sM.xpm", &s, &s);
-	d->img.score[2] = mlx_xpm_file_to_image(d->mlx, "img/s/sR.xpm", &s, &s);
+	d->img.farm[2] = mlx_xpm_file_to_image(d->mlx, "img/f/fL.xpm", &s, &s);
+	d->img.farm[3] = mlx_xpm_file_to_image(d->mlx, "img/f/fR.xpm", &s, &s);
 	d = set_nbr_img(d);
 	return (d);
 }
@@ -67,7 +66,8 @@ void	game(t_data *d)
 	d->win = mlx_new_window(d->mlx, d->width * 60, d->height * 60, "so_long");
 	render_background(d);
 	mlx_put_image_to_window(d->mlx, d->win, d->img.cow[0], d->posx, d->posy);
-	draw_farmer(d);
+	if (d->farm->next != NULL)
+		draw_farmer(d);
 	render_score(d, ft_itoa(d->nb_move));
 	mlx_key_hook(d->win, &key_pressed, d);
 	mlx_hook(d->win, 17, 0L, &end_exit, d);

@@ -40,7 +40,7 @@ int	nbr_of_farmer(t_farmer *farm)
 	return (i);
 }
 
-t_data	*get_farmer(t_data *d)
+t_farmer	*get_farmer(t_data *d)
 {
 	int			x;
 	int			y;
@@ -49,6 +49,7 @@ t_data	*get_farmer(t_data *d)
 	x = 0;
 	y = 0;
 	tmp = d->farm;
+	tmp->next = NULL;
 	while (y < d->height)
 	{
 		while (x < d->width)
@@ -64,7 +65,7 @@ t_data	*get_farmer(t_data *d)
 		y++;
 		x = 0;
 	}
-	return (d);
+	return (d->farm);
 }
 
 void	draw_farmer(t_data *d)
@@ -81,10 +82,10 @@ void	draw_farmer(t_data *d)
 			mlx_put_image_to_window(d->mlx, d->win, d->img.farm[1], tmp->posx,
 				tmp->posy);
 		if (tmp->fdir == 'L')
-			mlx_put_image_to_window(d->mlx, d->win, d->img.farm[0], tmp->posx,
+			mlx_put_image_to_window(d->mlx, d->win, d->img.farm[3], tmp->posx,
 				tmp->posy);
 		if (tmp->fdir == 'R')
-			mlx_put_image_to_window(d->mlx, d->win, d->img.farm[0], tmp->posx,
+			mlx_put_image_to_window(d->mlx, d->win, d->img.farm[2], tmp->posx,
 				tmp->posy);
 		tmp = tmp->next;
 	}

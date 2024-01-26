@@ -79,7 +79,7 @@ t_data		*set_nbr_img(t_data *d);
 
 t_farmer	*new_farmer(int x, int y, char c);
 int			nbr_of_farmer(t_farmer *farm);
-t_data		*get_farmer(t_data *d);
+t_farmer	*get_farmer(t_data *d);
 
 void		print_img(t_data *d, void *img, int x, int y);
 void		draw_farmer(t_data *d);
@@ -102,6 +102,7 @@ int			end(t_data *d);
 int			end_exit(t_data *d);
 int			end_game(int keycode, t_data *d);
 void		win(t_data *d);
+void		render_score_end(t_data *d, char *score);
 void		check_gameover(t_data *d);
 
 #endif

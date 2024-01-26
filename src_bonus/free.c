@@ -25,11 +25,14 @@ void	pre_end(t_data *d)
 		free(d->map[i]);
 		i++;
 	}
-	while (tmp != NULL)
+	if (d->farm->next != NULL)
 	{
-		free(d->farm);
-		d->farm = tmp;
-		tmp = tmp->next;
+		while (tmp != NULL)
+		{
+			free(d->farm);
+			d->farm = tmp;
+			tmp = tmp->next;
+		}
 	}
 	free(d->farm);
 	free(d->map);
@@ -48,11 +51,10 @@ void	free_img(t_data *d)
 	mlx_destroy_image(d->mlx, d->img.cow[3]);
 	mlx_destroy_image(d->mlx, d->img.farm[0]);
 	mlx_destroy_image(d->mlx, d->img.farm[1]);
+	mlx_destroy_image(d->mlx, d->img.farm[2]);
+	mlx_destroy_image(d->mlx, d->img.farm[3]);
 	mlx_destroy_image(d->mlx, d->img.exit[0]);
 	mlx_destroy_image(d->mlx, d->img.exit[1]);
-	mlx_destroy_image(d->mlx, d->img.score[0]);
-	mlx_destroy_image(d->mlx, d->img.score[1]);
-	mlx_destroy_image(d->mlx, d->img.score[2]);
 	destroy_nb(d);
 }
 
@@ -98,6 +100,7 @@ int	end_game(int keycode, t_data *d)
 	{
 		mlx_clear_window(d->mlx, d->win);
 		mlx_destroy_image(d->mlx, d->img.menu);
+		destroy_nb(d);
 		mlx_loop_end(d->mlx);
 		mlx_destroy_window(d->mlx, d->win);
 		if (d->mlx)
